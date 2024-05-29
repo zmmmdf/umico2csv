@@ -29,7 +29,7 @@ pip install umico2csv
 Usage
 ----------
 ```py
-from umico2csv.scraper import Scraper
+from umico2csv import Scraper
 
 scraper = Scraper()
 

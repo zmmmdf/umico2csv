@@ -62,6 +62,7 @@ class Scraper:
 
                 if page % 100 == 0 or page == last_page_number:
                     entries = await asyncio.gather(*tasks)
+                    unique_entries = []  # Initialize unique entries for each page
                     for entry_list in entries:
                         unique_entries.extend(entry_list)
 
@@ -71,3 +72,4 @@ class Scraper:
                             csv_writer.writerow(entry)
 
                     tasks.clear()
+

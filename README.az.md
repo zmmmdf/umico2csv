@@ -25,7 +25,7 @@ pip install umico2csv
 ## İstifadə
 
 ```python
-from umico2csv.scraper import Scraper
+from umico2csv import Scraper
 
 scraper = Scraper()
 
