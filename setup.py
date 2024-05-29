@@ -22,7 +22,10 @@ setup(
     py_modules=['umico2csv.scraper'],
     install_requires=[
         'requests',
-        'beautifulsoup4'
+        'beautifulsoup4',
+        'aiohttp',
+        'asyncio',
+        'csv',
     ],
     entry_points={
         'console_scripts': [
