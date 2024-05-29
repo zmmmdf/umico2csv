@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from csv import writer
+import sys
 
 class Scraper:
     def __init__(self):
@@ -30,9 +31,6 @@ class Scraper:
                 response = requests.get(page_url)
                 page_soup = BeautifulSoup(response.text, 'html.parser')
 
-
-                print(f"Scraping page {page} of {last_page_number}...")
-
                 items = page_soup.find_all(class_='MPProductItem')
 
                 for item in items:
@@ -40,18 +38,22 @@ class Scraper:
                         img_url = item.select_one('.MPProductItem-Logo img')['src']
                         name = item.select_one('.MPTitle').text.strip()
                         price = item.select_one('span.flex.flex-col.justify-end.text-base.leading-6.font-bold span').text.strip()
-                        if price.count('.')>1:
+                        if price.count('.') > 1:
                             price = item.select('span.flex.flex-col.justify-end.text-base.leading-6.font-bold span span')[0].text.strip()
                         if not (name and price): continue
                         seller = item.select_one('.MPProductItem-Seller div span:last-child').text.strip()
                         link = "https://umico.az" + item.select_one('a[href]')['href'].split('-')[0]
                         entry = (img_url, name, price, seller, link)
 
-                        print(f"Found item: {name, price}")
-
                         if entry not in unique_entries:
                             unique_entries.add(entry)
                             csv_writer.writerow(entry)
                     except Exception as e:
-                        print(f"Error processing item entry on page {page}: {e}")
+                        print(f"\nError processing item entry on page {page}: {e}")
                         pass
+
+                # Print the progress without a newline
+                sys.stdout.write(f"\rScraping page {page} of {last_page_number}")
+                sys.stdout.flush()
+
+            print("\nScraping complete.")
