@@ -44,7 +44,7 @@ class Scraper:
                             price = item.select('span.flex.flex-col.justify-end.text-base.leading-6.font-bold span span')[0].text.strip()
                         if not (name and price): continue
                         seller = item.select_one('.MPProductItem-Seller div span:last-child').text.strip()
-                        link = "https://umico.az" + item.select_one('a[href]')['href']
+                        link = "https://umico.az" + item.select_one('a[href]')['href'].split('-')[0]
                         entry = (img_url, name, price, seller, link)
 
                         print(f"Found item: {entry}")
