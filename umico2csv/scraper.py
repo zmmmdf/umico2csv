@@ -47,7 +47,7 @@ class Scraper:
                         link = "https://umico.az" + item.select_one('a[href]')['href'].split('-')[0]
                         entry = (img_url, name, price, seller, link)
 
-                        print(f"Found item: {entry}")
+                        print(f"Found item: {name, price}")
 
                         if entry not in unique_entries:
                             unique_entries.add(entry)
